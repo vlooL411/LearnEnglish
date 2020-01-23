@@ -1,0 +1,33 @@
+﻿<Window x:Class="LearnEnglish.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LearnEnglish"
+        mc:Ignorable="d"
+		WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="450" Width="800">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="9.5*"/>
+			<RowDefinition Height="0.5*" MaxHeight="20"/>
+		</Grid.RowDefinitions>
+		<Grid x:Name="gr"/>
+		<Grid x:Name="AlertProcesses" Panel.ZIndex="1000" Visibility="Hidden" MinWidth="130" MaxHeight="200" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="4*"/>
+				<RowDefinition/>
+			</Grid.RowDefinitions>
+			<ListBox x:Name="ListsProcess" MinHeight="15" Background="#FF1F1C1C" Foreground="#FF666565"/>
+			<Polyline Points="15 0, 22.5 15, 30 0" Margin="0 -2 0 0" Height="20" Grid.Row="1" Fill="#FF1F1C1C"/>
+		</Grid>
+		<Grid Grid.Row="1" Background="#FF1581C9">
+			<Viewbox HorizontalAlignment="Left" Margin="5 0">
+				<StackPanel Orientation="Horizontal">
+					<Button Click="TurnOnAlert_Click" Content="֎" MaxWidth="20" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" />
+					<TextBlock x:Name="CurrentProcess" Margin="3 0" TextAlignment="Center"/>
+				</StackPanel>
+			</Viewbox>
+		</Grid>
+	</Grid>
+</Window>

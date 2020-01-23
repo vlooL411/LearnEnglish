@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EnglishModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Story">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Story_Word">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDWord" Type="bigint" Nullable="false" />
+          <Property Name="IDStory" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="tinyint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Word">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Word" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Translate" Type="nvarchar" MaxLength="100" />
+          <Property Name="TypeID" Type="tinyint" />
+        </EntityType>
+        <Association Name="FK_Story_Word_Story">
+          <End Role="Story" Type="Self.Story" Multiplicity="1" />
+          <End Role="Story_Word" Type="Self.Story_Word" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Story">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Story_Word">
+              <PropertyRef Name="IDStory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Story_Word_Word">
+          <End Role="Word" Type="Self.Word" Multiplicity="1" />
+          <End Role="Story_Word" Type="Self.Story_Word" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Word">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Story_Word">
+              <PropertyRef Name="IDWord" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Word_Type">
+          <End Role="Type" Type="Self.Type" Multiplicity="0..1" />
+          <End Role="Word" Type="Self.Word" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Word">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EnglishModelStoreContainer">
+          <EntitySet Name="Story" EntityType="Self.Story" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Story_Word" EntityType="Self.Story_Word" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Word" EntityType="Self.Word" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Story_Word_Story" Association="Self.FK_Story_Word_Story">
+            <End Role="Story" EntitySet="Story" />
+            <End Role="Story_Word" EntitySet="Story_Word" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Story_Word_Word" Association="Self.FK_Story_Word_Word">
+            <End Role="Word" EntitySet="Word" />
+            <End Role="Story_Word" EntitySet="Story_Word" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Word_Type" Association="Self.FK_Word_Type">
+            <End Role="Type" EntitySet="Type" />
+            <End Role="Word" EntitySet="Word" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EnglishModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Story">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Story_Word" Relationship="Self.FK_Story_Word_Story" FromRole="Story" ToRole="Story_Word" />
+        </EntityType>
+        <EntityType Name="Story_Word">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDWord" Type="Int64" Nullable="false" />
+          <Property Name="IDStory" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Story" Relationship="Self.FK_Story_Word_Story" FromRole="Story_Word" ToRole="Story" />
+          <NavigationProperty Name="Word" Relationship="Self.FK_Story_Word_Word" FromRole="Story_Word" ToRole="Word" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Byte" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Words" Relationship="Self.FK_Word_Type" FromRole="Type" ToRole="Word" />
+        </EntityType>
+        <EntityType Name="Word">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Word1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Translate" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TypeID" Type="Byte" />
+          <NavigationProperty Name="Story_Word" Relationship="Self.FK_Story_Word_Word" FromRole="Word" ToRole="Story_Word" />
+          <NavigationProperty Name="Type" Relationship="Self.FK_Word_Type" FromRole="Word" ToRole="Type" />
+        </EntityType>
+        <Association Name="FK_Story_Word_Story">
+          <End Role="Story" Type="Self.Story" Multiplicity="1" />
+          <End Role="Story_Word" Type="Self.Story_Word" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Story">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Story_Word">
+              <PropertyRef Name="IDStory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Story_Word_Word">
+          <End Role="Word" Type="Self.Word" Multiplicity="1" />
+          <End Role="Story_Word" Type="Self.Story_Word" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Word">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Story_Word">
+              <PropertyRef Name="IDWord" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Word_Type">
+          <End Role="Type" Type="Self.Type" Multiplicity="0..1" />
+          <End Role="Word" Type="Self.Word" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Word">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EnglishEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Stories" EntityType="Self.Story" />
+          <EntitySet Name="Story_Word" EntityType="Self.Story_Word" />
+          <EntitySet Name="Types" EntityType="Self.Type" />
+          <EntitySet Name="Words" EntityType="Self.Word" />
+          <AssociationSet Name="FK_Story_Word_Story" Association="Self.FK_Story_Word_Story">
+            <End Role="Story" EntitySet="Stories" />
+            <End Role="Story_Word" EntitySet="Story_Word" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Story_Word_Word" Association="Self.FK_Story_Word_Word">
+            <End Role="Word" EntitySet="Words" />
+            <End Role="Story_Word" EntitySet="Story_Word" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Word_Type" Association="Self.FK_Word_Type">
+            <End Role="Type" EntitySet="Types" />
+            <End Role="Word" EntitySet="Words" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EnglishModelStoreContainer" CdmEntityContainer="EnglishEntities">
+          <EntitySetMapping Name="Stories">
+            <EntityTypeMapping TypeName="EnglishModel.Story">
+              <MappingFragment StoreEntitySet="Story">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Story_Word">
+            <EntityTypeMapping TypeName="EnglishModel.Story_Word">
+              <MappingFragment StoreEntitySet="Story_Word">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IDWord" ColumnName="IDWord" />
+                <ScalarProperty Name="IDStory" ColumnName="IDStory" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Types">
+            <EntityTypeMapping TypeName="EnglishModel.Type">
+              <MappingFragment StoreEntitySet="Type">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Words">
+            <EntityTypeMapping TypeName="EnglishModel.Word">
+              <MappingFragment StoreEntitySet="Word">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Word1" ColumnName="Word" />
+                <ScalarProperty Name="Translate" ColumnName="Translate" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
