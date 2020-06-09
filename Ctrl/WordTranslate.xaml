@@ -16,7 +16,7 @@
 			<ColumnDefinition Width="0.8*"/>
 		</Grid.ColumnDefinitions>
 		<Border BorderBrush="Black" BorderThickness="1">
-			<TextBlock Text="{Binding Word1}" FontSize="30" Padding="5" MinHeight="20" MinWidth="150"/>
+			<TextBlock Text="{Binding Text}" FontSize="30" Padding="5" MinHeight="20" MinWidth="150"/>
 		</Border>
 		<Border Grid.Column="1" BorderBrush="Black" BorderThickness="1">
 			<TextBlock Text="{Binding Translate}" FontSize="30" Padding="5" MinHeight="20" MinWidth="150"/>

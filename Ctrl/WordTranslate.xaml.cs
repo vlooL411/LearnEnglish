@@ -18,7 +18,7 @@ namespace LearnEnglish.Ctrl
             if (word != null)
                 if (word?.Translate == null)
                 {
-                    word.Translate = TranslateYandex.Translate(word.Word1);
+                    word.Translate = TranslateYandex.Translate(word.Text);
                     Work.SaveSafe();
                     Dispatcher.Invoke(() =>
                     {

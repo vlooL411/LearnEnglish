@@ -21,7 +21,7 @@ namespace LearnEnglish
         public TestStoryWord() => InitializeComponent();
         public void Fill(List<Word> ws, string header)
         {
-            words = ws.Where(w => w.Translate != null && w != null && w.Word1 != null).ToList();
+            words = ws.Where(w => w.Translate != null && w != null && w.Text != null).ToList();
             if (words.Count == 0) Work.frame.GoBack();
             test = new TestPage() { Header = header };
             Next();
@@ -43,10 +43,10 @@ namespace LearnEnglish
             for (int i = 0; i < (count != 0 ? 4 : count); i++)
                 test.Words.Add(GetWord());
 
-            if (test.Words.Count != 0)
+            if (!test.Words.Any())
                 test.CurrentWord = new Random().Next(0, test.Words.Count);
 
-            CurrentWord.Text = test.Words[test.CurrentWord].Word1;
+            CurrentWord.Text = test.Words[test.CurrentWord].Text;
             DataContext = null;
             DataContext = test;
         }

@@ -66,8 +66,8 @@ namespace LearnEnglish
                     {
                         var swords = s.Story_Word.Where(sw => (sw.Word.Translate == null || sw.Word.Translate == "") && (sw.Word.TypeID != 3 || sw.Word.TypeID == 4));
                         end = swords.Count();
-                        if (end > 250) swords.Take(100).AsParallel().ForAll(sw => sw.Word.Translate = TranslateYandex.Translate(sw.Word.Word1));
-                        else swords.AsParallel().ForAll(sw => sw.Word.Translate = TranslateYandex.Translate(sw.Word.Word1));
+                        if (end > 250) swords.Take(100).AsParallel().ForAll(sw => sw.Word.Translate = TranslateYandex.Translate(sw.Word.Text));
+                        else swords.AsParallel().ForAll(sw => sw.Word.Translate = TranslateYandex.Translate(sw.Word.Text));
                     }
                     catch { }
                     Save();
@@ -89,7 +89,7 @@ namespace LearnEnglish
                     {
                         var words = bd.Words.Where(w => (w.Translate == null || w.Translate == "") && (w.TypeID != 3 || w.TypeID == 4));
                         end = words.Count() - translateWordTime;
-                        words.Take(translateWordTime).AsParallel().ForAll(w => w.Translate = TranslateYandex.Translate(w.Word1));
+                        words.Take(translateWordTime).AsParallel().ForAll(w => w.Translate = TranslateYandex.Translate(w.Text));
                     }
                     catch { end += translateWordTime; }
                     Save();
@@ -114,10 +114,10 @@ namespace LearnEnglish
             return line.Split(' ').Where(l => l != "" && l != "'").Distinct().ToArray();
         }
 
-        static public void Story_WordAdd(string w, Story s) => Story_WordAdd(new Word() { Word1 = w }, s);
+        static public void Story_WordAdd(string w, Story s) => Story_WordAdd(new Word() { Text = w }, s);
         static public void Story_WordAdd(Word w, Story s)
         {
-            var words = bd.Words.Where(wr => wr.Word1 == w.Word1);
+            var words = bd.Words.Where(wr => wr.Text == w.Text);
             try { s.Story_Word.Add(new Story_Word() { Word = words.Count() == 0 ? w : words.First() }); }
             catch { Thread.Sleep(10); Story_WordAdd(w, s); }
         }

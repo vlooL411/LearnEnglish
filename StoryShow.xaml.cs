@@ -36,7 +36,7 @@ namespace LearnEnglish
                     Count.Text = swords.Count().ToString();
                     await Task.Run(() =>
                     {
-                        swords.OrderBy(sw => sw.Word.Word1).AsParallel().AsOrdered().
+                        swords.OrderBy(sw => sw.Word.Text).AsParallel().AsOrdered().
                             ForAll(sw => Dispatcher.Invoke(() => WordTranslate.Items.Add(sw?.Word)));
                         Dispatcher.Invoke(() => UnLoadWords.Invoke());
                     }, tokenSource.Token);
@@ -56,7 +56,7 @@ namespace LearnEnglish
                     Count.Text = words.Count().ToString();
                     await Task.Run(() =>
                     {
-                        words.OrderBy(a => a.Word1).AsParallel().AsOrdered().
+                        words.OrderBy(a => a.Text).AsParallel().AsOrdered().
                           ForAll(w => Dispatcher.Invoke(() => WordTranslate.Items.Add(w)));
                         Dispatcher.Invoke(() => UnLoadWords.Invoke());
                     }, tokenSource.Token);

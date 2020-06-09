@@ -26,17 +26,17 @@ namespace LearnEnglish
             var str = "";
             try
             {
-                string trWord1 = RequestTrYandexSimple(word);
+                string trText = RequestTrYandexSimple(word);
                 string trWord2 = RequestTrYandexSimple("to " + word).Replace("to ", "");
                 string trWord3 = RequestTrYandexSimple("the " + word).Replace("the ", "");
                 string a = "a ";
                 foreach (var i in glasnie)
                     if (word[0] == i) { a = "an "; break; }
                 string trWord4 = RequestTrYandexSimple(a + word).Replace(a, "");
-                str += trWord1;
-                if (trWord1 != trWord2) str += ", " + trWord2;
-                if (trWord1 != trWord3 && trWord2 != trWord3) str += ", " + trWord3;
-                if (trWord1 != trWord4 && trWord2 != trWord4 && trWord3 != trWord4) str += ", " + trWord4;
+                str += trText;
+                if (trText != trWord2) str += ", " + trWord2;
+                if (trText != trWord3 && trWord2 != trWord3) str += ", " + trWord3;
+                if (trText != trWord4 && trWord2 != trWord4 && trWord3 != trWord4) str += ", " + trWord4;
             }
             catch { }
             return str;

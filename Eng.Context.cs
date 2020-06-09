@@ -16,7 +16,7 @@ namespace LearnEnglish
     public partial class EnglishEntities : DbContext
     {
         public EnglishEntities()
-            : base("name=EnglishEntities")
+            : base("name=EnglishEntities1")
         {
         }
     

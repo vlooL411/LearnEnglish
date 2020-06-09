@@ -3,9 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:LearnEnglish"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800"
       Title="TestStoryWord">
 	<Page.Resources>
 		<Style x:Key="TestButton" TargetType="{x:Type Button}">
@@ -62,9 +60,9 @@
 		</Viewbox>
 		<Viewbox Margin="30 15" Grid.Row="2">
 			<ListBox Name="ListBoxWords" SelectionChanged="ListBox_SelectionChanged" Background="{x:Null}" BorderBrush="{x:Null}">
-				<StackPanel Tag="Word1" Orientation="Horizontal">
+				<StackPanel Tag="Text" Orientation="Horizontal">
 					<Border BorderBrush="Black" BorderThickness="1">
-						<TextBlock Text="{Binding Words[0].Word1}" Visibility="{Binding ElementName=Continue, Path=Visibility}" MinWidth="100"/>
+						<TextBlock Text="{Binding Words[0].Text}" Visibility="{Binding ElementName=Continue, Path=Visibility}" MinWidth="100"/>
 					</Border>
 					<Border BorderBrush="Black" BorderThickness="1">
 						<TextBlock Text="{Binding Words[0].Translate}" MinWidth="100"/>
@@ -72,7 +70,7 @@
 				</StackPanel>
 				<StackPanel Tag="Word2" Orientation="Horizontal">
 					<Border BorderBrush="Black" BorderThickness="1">
-						<TextBlock Text="{Binding Words[1].Word1}" Visibility="{Binding ElementName=Continue, Path=Visibility}" MinWidth="100"/>
+						<TextBlock Text="{Binding Words[1].Text}" Visibility="{Binding ElementName=Continue, Path=Visibility}" MinWidth="100"/>
 					</Border>
 					<Border BorderBrush="Black" BorderThickness="1">
 						<TextBlock Text="{Binding Words[1].Translate}" MinWidth="100"/>
@@ -80,7 +78,7 @@
 				</StackPanel>
 				<StackPanel Tag="Word3" Orientation="Horizontal">
 					<Border BorderBrush="Black" BorderThickness="1">
-						<TextBlock Text="{Binding Words[2].Word1}" Visibility="{Binding ElementName=Continue, Path=Visibility}" MinWidth="100"/>
+						<TextBlock Text="{Binding Words[2].Text}" Visibility="{Binding ElementName=Continue, Path=Visibility}" MinWidth="100"/>
 					</Border>
 					<Border BorderBrush="Black" BorderThickness="1">
 						<TextBlock Text="{Binding Words[2].Translate}" MinWidth="100"/>
@@ -88,7 +86,7 @@
 				</StackPanel>
 				<StackPanel Tag="Word4" Orientation="Horizontal">
 					<Border BorderBrush="Black" BorderThickness="1">
-						<TextBlock Text="{Binding Words[3].Word1}" Visibility="{Binding ElementName=Continue, Path=Visibility}" MinWidth="100"/>
+						<TextBlock Text="{Binding Words[3].Text}" Visibility="{Binding ElementName=Continue, Path=Visibility}" MinWidth="100"/>
 					</Border>
 					<Border BorderBrush="Black" BorderThickness="1">
 						<TextBlock Text="{Binding Words[3].Translate}" MinWidth="100"/>
