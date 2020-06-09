@@ -21,7 +21,7 @@ namespace LearnEnglish
         }
     
         public long ID { get; set; }
-        public string Word1 { get; set; }
+        public string Text { get; set; }
         public string Translate { get; set; }
         public Nullable<byte> TypeID { get; set; }
     

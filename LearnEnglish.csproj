@@ -193,7 +193,9 @@
       <DependentUpon>Eng.edmx</DependentUpon>
       <LastGenOutput>Eng.cs</LastGenOutput>
     </Content>
+    <Content Include="ScriptsSql\English.sql" />
     <Resource Include="Resources\RoatetLoad.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
